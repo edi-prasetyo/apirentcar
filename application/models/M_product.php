@@ -61,17 +61,28 @@ class M_product extends CI_Model
     // 	return $resultMobil;
     // }
 
-    function get_mobil($kota, $type)
-    {
-        $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        $this->db->from('paket');
-        $this->db->join('mobil', 'mobil.id = paket.mobil_id');
-        $this->db->where('paket.kota_id', $kota);
-        $this->db->where('paket.paket_type', $type);
-        $this->db->where('mobil.mobil_status', 'Aktif');
-        $this->db->group_by('mobil.id');
-        $resultMobil = $this->db->get()->result();
+    // function get_mobil($kota, $type)
+    // {
+    //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
+    //     $this->db->from('paket');
+    //     $this->db->join('mobil', 'mobil.id = paket.mobil_id');
+    //     $this->db->where('paket.kota_id', $kota);
+    //     $this->db->where('paket.paket_type', $type);
+    //     $this->db->where('mobil.mobil_status', 'Aktif');
+    //     $this->db->group_by('mobil.id');
+    //     $resultMobil = $this->db->get()->result();
 
-        return $resultMobil;
+    //     return $resultMobil;
+    // }
+
+
+
+    function get_mobil($kota, $type){
+        $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
+        $this->db->from('mobil');
+        $this->db->where('mobil.mobil_status', 'Aktif');
+        $resultMobil = $this->db->get()->result();
+		
+		return $resultMobil;
     }
 }
