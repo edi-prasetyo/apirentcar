@@ -97,6 +97,7 @@ class Order extends BD_Controller {
         $data['total_price'] = $this->post('total_price');
         $data['diskon_point'] = $this->post('diskon_point');
         $data['promo_amount'] = $this->post('promo_amount');
+        $data['kode_promo'] = $this->post('kode_promo');
         $data['grand_total'] = $this->post('grand_total');
         $data['status'] = $this->post('status');
         $data['status_read'] = $this->post('status_read');
