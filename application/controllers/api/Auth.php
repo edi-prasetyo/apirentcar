@@ -44,6 +44,7 @@ class Auth extends BD_Controller {
             ], REST_Controller::HTTP_BAD_REQUEST);
         }else{
             $user = $this->M_main->get_user($email)->row_array();
+            $point = $this->M_main->get_user_point($email);
             if(!empty($user)){
                 if (password_verify($password, $user['password'])) {
                     $token['id'] = $user['id']; 
@@ -55,6 +56,7 @@ class Auth extends BD_Controller {
                     $dataUser['id'] = $user['id'];
                     $dataUser['name'] = $user['name'];
                     $dataUser['email'] = $user['email'];
+                    $dataUser['point'] = $point;
                     $output['user_details'] = $dataUser;
                     $this->set_response([
                         'code' => 1,
