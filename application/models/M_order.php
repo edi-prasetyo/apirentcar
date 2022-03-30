@@ -27,4 +27,8 @@ class M_order extends CI_Model{
 	function insert($data){
 		return $this->db->insert('transaksi', $data);
 	}
+
+	function update($data, $where){
+		return $this->db->update('transaksi', $data, $where);
+	}
 }
