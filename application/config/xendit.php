@@ -2,8 +2,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // Nur
-$config['xendit']['api_key']	= 'your_api_key';
-$config['xendit']['callback_token'] = 'your_callback_token';
+$config['xendit']['api_key']	= '';
+$config['xendit']['callback_token'] = '';
 
 $config['xendit']['fees'] = array();
 //$config['xendit']['fees'] = array(
