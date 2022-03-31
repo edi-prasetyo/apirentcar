@@ -53,4 +53,9 @@ class M_master extends CI_Model{
      
         return $data;
     }
+
+
+    function get_airport() {
+		return $this->db->get_where('airport')->result();
+	}
 }

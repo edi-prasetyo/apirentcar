@@ -49,6 +49,87 @@ class M_product extends CI_Model
         return $data;
     }
 
+
+    function get_dropoff($kota_asal, $kota_tujuan)
+    {
+        $this->db->select('*');
+        $this->db->from('paket_dropoff');
+        $this->db->where('kota_asal', $kota_asal);
+        $this->db->where('kota_tujuan', $kota_tujuan);
+        $data = $this->db->get()->result();
+        if (!empty($data)) {
+            // data mobil 
+            for ($i = 0; $i < count($data); $i++) {
+                $this->db->select('mobil_name,mobil_desc,mobil_penumpang,mobil_bagasi,mobil_gambar');
+                $this->db->from('mobil');
+                $this->db->where('id', $data[$i]->mobil_id);
+                $this->db->where('mobil_status', 'Aktif');
+                $dataMobil = $this->db->get()->result();
+                if (!empty($dataMobil)) {
+                    $data[$i]->data_mobil = $dataMobil[0];
+                } else {
+                    $data[$i]->data_mobil = NULL;
+                }
+            }
+
+            // data ketentuan 
+            for ($i = 0; $i < count($data); $i++) {
+                $this->db->select('ketentuan_name,ketentuan_desc');
+                $this->db->from('ketentuan');
+                $this->db->where('id', $data[$i]->ketentuan_id);
+                $dataKetentuan = $this->db->get()->result();
+                if (!empty($dataKetentuan)) {
+                    $data[$i]->data_ketentuan = $dataKetentuan[0];
+                } else {
+                    $data[$i]->data_ketentuan = NULL;
+                }
+            }
+        }
+
+        return $data;
+    }
+
+
+
+    function get_airport($bandara, $kota_tujuan)
+    {
+        $this->db->select('*');
+        $this->db->from('paket_airport');
+        $this->db->where('airport_id', $bandara);
+        $this->db->where('kota_tujuan', $kota_tujuan);
+        $data = $this->db->get()->result();
+        if (!empty($data)) {
+            // data mobil 
+            for ($i = 0; $i < count($data); $i++) {
+                $this->db->select('mobil_name,mobil_desc,mobil_penumpang,mobil_bagasi,mobil_gambar');
+                $this->db->from('mobil');
+                $this->db->where('id', $data[$i]->mobil_id);
+                $this->db->where('mobil_status', 'Aktif');
+                $dataMobil = $this->db->get()->result();
+                if (!empty($dataMobil)) {
+                    $data[$i]->data_mobil = $dataMobil[0];
+                } else {
+                    $data[$i]->data_mobil = NULL;
+                }
+            }
+
+            // data ketentuan 
+            for ($i = 0; $i < count($data); $i++) {
+                $this->db->select('ketentuan_name,ketentuan_desc');
+                $this->db->from('ketentuan');
+                $this->db->where('id', $data[$i]->ketentuan_id);
+                $dataKetentuan = $this->db->get()->result();
+                if (!empty($dataKetentuan)) {
+                    $data[$i]->data_ketentuan = $dataKetentuan[0];
+                } else {
+                    $data[$i]->data_ketentuan = NULL;
+                }
+            }
+        }
+
+        return $data;
+    }
+
     // function get_mobil($kota, $type){
     //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
     //     $this->db->from('paket');

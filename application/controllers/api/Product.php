@@ -77,21 +77,43 @@ class Product extends BD_Controller {
         }
     }
 
-    public function datamobildropoff_get(){
-        $kota = $this->get('kota');
-        $type = $this->get('type');
-        $car = $this->M_product->get_mobil($kota, $type);
+    public function datapaketdropoff_get(){
+        $kota_asal = $this->get('kota_asal');
+        $kota_tujuan = $this->get('kota_tujuan');
+        $car = $this->M_product->get_dropoff($kota_asal, $kota_tujuan);
 
         if(!empty($car)){
             $this->response([
                 'code' => 1,
-                'message' => 'List Data Car Dropoff',
+                'message' => 'List Data Paket Dropoff',
                 'data' => $car
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
         }else{
             $this->response([
                 'code' => 0,
-                'message' => 'List Data Car Dropoff Not Found',
+                'message' => 'List Data Paket Dropoff Not Found',
+                'data' => $car
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+
+        }
+    }
+
+
+    public function datapaketairport_get(){
+        $airport_id = $this->get('airport_id');
+        $kota_tujuan = $this->get('kota_tujuan');
+        $car = $this->M_product->get_airport($airport_id, $kota);
+
+        if(!empty($car)){
+            $this->response([
+                'code' => 1,
+                'message' => 'List Data Paket Airport',
+                'data' => $car
+            ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        }else{
+            $this->response([
+                'code' => 0,
+                'message' => 'List Data Paket airport Not Found',
                 'data' => $car
             ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
 

@@ -124,4 +124,26 @@ class Master extends BD_Controller {
         }
     }
 
+
+    public function airport_get()
+    {
+        $airport = $this->M_master->get_airport();
+        if (!empty($airport))
+        {
+            $this->response([
+                'code' => 1,
+                'message' => 'List Data airport',
+                'data' => $airport
+            ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        }
+        else
+        {
+            $this->response([
+                'code' => 0,
+                'message' => 'List Data airport Not Found',
+                'data' => $airport
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
 }

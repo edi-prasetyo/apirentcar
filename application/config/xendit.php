@@ -13,14 +13,14 @@ $config['xendit']['fees'] = array();
 
 
 $config['xendit']['invoice_expired'] = 900; // detik
-$config['xendit']['callback_url'] = 'https://xendit-ci.demo.siini.com/api/callback/xendit';
+$config['xendit']['callback_url'] = 'https://api.sewamobiloka.com/api/callback/xendit';
 
 $config['xendit']['production'] = (strpos('xnd_production_', $config['xendit']['api_key']) !== false) ? true : false;
 //$config['xendit']['merchant'] = '10766'; // Untufk prefix VA number
 
 
 /* Setting Untuk direct method */
-//$config['xendit']['redirect_url'] = 'https://xendit-ci.demo.siini.com'; // unused
+//$config['xendit']['redirect_url'] = 'https://api.sewamobiloka.com'; // unused
 // For direct api
 $config['xendit']['channels'] = array(
 	'VIRTUAL_ACCOUNT',
