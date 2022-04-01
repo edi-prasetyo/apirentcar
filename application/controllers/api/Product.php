@@ -37,7 +37,8 @@ class Product extends BD_Controller {
 
     public function datapaket_get(){
         $mobil_id = $this->get('mobil_id');
-        $paket = $this->M_product->get_paket($mobil_id);
+        $city_id = $this->get('city_id');
+        $paket = $this->M_product->get_paket($mobil_id,$city_id);
 
         if(!empty($paket)){
             $this->response([
