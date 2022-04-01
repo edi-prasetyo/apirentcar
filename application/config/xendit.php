@@ -28,4 +28,5 @@ $config['xendit']['channels'] = array(
 	'EWALLET',
 	//'CREDIT_CARD', // Not supported
 	//'QRIS', // Not supported
+	// 
 );
