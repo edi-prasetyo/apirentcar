@@ -51,12 +51,13 @@ class M_product extends CI_Model
 
 
 
-    function get_paket($mobil_id, $city_id){
+    function get_paket($mobil_id, $city_id)
+    {
         $this->db->select('paket.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi, kota.kota_name');
         $this->db->from('paket');
         $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
         $this->db->join('kota', 'kota.id = paket.kota_id', 'LEFT');
-        $this->db->where(['kota_id' => $kota_id, 'mobil_id' => $mobil_id, 'paket_type'  => 'Daily']);
+        $this->db->where(['kota_id' => $city_id, 'mobil_id' => $mobil_id, 'paket_type'  => 'Daily']);
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get()->result();
         if (!empty($data)) {
@@ -187,12 +188,13 @@ class M_product extends CI_Model
 
 
 
-    function get_mobil($kota, $type){
+    function get_mobil($kota, $type)
+    {
         $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
         $this->db->from('mobil');
         $this->db->where('mobil.mobil_status', 'Aktif');
         $resultMobil = $this->db->get()->result();
-		
-		return $resultMobil;
+
+        return $resultMobil;
     }
 }
