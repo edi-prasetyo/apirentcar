@@ -60,7 +60,17 @@ class Product extends BD_Controller {
     public function datamobil_get(){
         $kota = $this->get('kota');
         $type = $this->get('type');
-        $car = $this->M_product->get_mobil($kota, $type);
+        $kota_asal = $this->get('kota_asal');
+        $kota_tujuan = $this->get('kota_tujuan');
+        $airport_id = $this->get('airport_id');
+
+        if($type === 'daily'){
+            $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, NULL);
+        }else if($type === 'drop off'){
+            $car = $this->M_product->get_mobil(NULL, $type, $kota_asal, $kota_tujuan, NULL);
+        }else if($type === 'Airport' || $type === 'Air port'){
+            $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, $airport_id);
+        }
 
         if(!empty($car)){
             $this->response([
@@ -105,7 +115,7 @@ class Product extends BD_Controller {
         $airport_id = $this->get('airport_id');
         $kota_tujuan = $this->get('kota_tujuan');
         $mobil_id = $this->get('mobil_id');
-        
+
         $car = $this->M_product->get_airport($airport_id, $kota_tujuan, $mobil_id);
 
         if(!empty($car)){
