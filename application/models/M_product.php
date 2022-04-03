@@ -251,7 +251,7 @@ class M_product extends CI_Model
             $this->db->order_by('paket.id', 'ASC');
             $this->db->group_by('paket.mobil_id');
             $resultMobil = $this->db->get()->result();
-        }else if($type === 'Drop Off'){
+        }else if($type === 'drop off' || $type === 'Drop Off' || $type === 'dropoff' ){
             $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
             $this->db->from('paket_dropoff');
             $this->db->join('mobil', 'mobil.id = paket_dropoff.mobil_id', 'LEFT');
@@ -261,7 +261,7 @@ class M_product extends CI_Model
             $this->db->order_by('paket_dropoff.id', 'ASC');
             $this->db->group_by('paket_dropoff.mobil_id');
             $resultMobil = $this->db->get()->result();
-        }else if ($type === 'Air port'){
+        }else if ($type === 'Airport' || $type === 'Air port' || $type === 'airport'){
             $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
             $this->db->from('paket_airport');
             $this->db->join('mobil', 'mobil.id = paket_airport.mobil_id', 'LEFT');

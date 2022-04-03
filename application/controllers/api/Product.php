@@ -66,9 +66,9 @@ class Product extends BD_Controller {
 
         if($type === 'daily'){
             $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, NULL);
-        }else if($type === 'drop off'){
+        }else if($type === 'drop off' || $type === 'Drop Off' || $type === 'dropoff' ){
             $car = $this->M_product->get_mobil(NULL, $type, $kota_asal, $kota_tujuan, NULL);
-        }else if($type === 'Airport' || $type === 'Air port'){
+        }else if($type === 'Airport' || $type === 'Air port' || $type === 'airport'){
             $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, $airport_id);
         }
 
