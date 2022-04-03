@@ -31,5 +31,9 @@ class M_main extends CI_Model{
 		return $this->db->get_where('user',['id' => $user_id])->result();
 	}
 
+	function update_profile($data){
+		$this->db->where('id', $data['id']);
+		return $this->db->update('user', $data);
+	}
 	
 }

@@ -181,4 +181,48 @@ class Auth extends BD_Controller {
         }
     }
 
+
+    public function update_profile_post(){
+        
+        $this->form_validation->set_rules("name","Nama","required");
+
+		$this->form_validation->set_rules(
+			'email',
+			'Email',
+			'required|valid_email',
+			[
+				'required' 		=> 'Email Harus diisi',
+				'valid_email' 	=> 'Email Harus Valid'
+			]
+		);
+
+        // collect data
+        $data = [
+            'id'            => $this->post('user_id'),
+            'name' 			=> $this->post('name'),
+            'email' 		=> $this->post('email'),
+            'user_phone'	=> $this->post('phone'),
+            'date_updated'	=> date('Y-m-d H:i:s')
+        ];
+
+		if ($this->form_validation->run() === FALSE) {
+            $this->set_response([
+                'code' => 0,
+                'message' => 'Update Failed',
+                'data' => $data
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        } else {
+            if($this->M_main->update_profile($data)){
+                $this->set_response([
+                    'code' => 1,
+                    'message' => 'Update Success',
+                    'data' => $data
+                ], REST_Controller::HTTP_OK);
+            }
+           
+        }
+
+        
+    }
+
 }
