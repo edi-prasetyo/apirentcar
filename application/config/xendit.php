@@ -2,8 +2,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // Nur
-$config['xendit']['api_key']	= 'xnd_development_dFNfKxMeCqqff7oldj7s2KeTEuxfbgmwOdQQZxsUeAFeGWzFC4scGd1OvdYnpL';
-$config['xendit']['callback_token'] = 'DFmzBNCxn4uchicqog86JLfBkCxviyRpaCsLygxStOn5Ft6Z';
+$config['xendit']['api_key']	= '';
+$config['xendit']['callback_token'] = '';
 
 $config['xendit']['fees'] = array();
 //$config['xendit']['fees'] = array(
@@ -13,7 +13,7 @@ $config['xendit']['fees'] = array();
 
 
 $config['xendit']['invoice_expired'] = 900; // detik
-$config['xendit']['callback_url'] = 'https://apismlfx.alfadigitalsolution.com/api/callback/xendit';
+$config['xendit']['callback_url'] = '';
 
 $config['xendit']['production'] =  false;
 //$config['xendit']['merchant'] = '10766'; // Untufk prefix VA number
