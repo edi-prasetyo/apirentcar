@@ -44,7 +44,7 @@ class M_master extends CI_Model{
     }
 
     function get_news($id = NULL){
-        $this->db->select('id,user_id,category_id,berita_title,berita_desc,berita_gambar,berita_status,berita_keywords,berita_views');
+        $this->db->select('id,user_id,category_id,berita_title,berita_desc,berita_gambar,berita_status,berita_keywords,berita_views,image_url');
 		$this->db->from('berita');
         if($id != NULL){
             $this->db->where('id', $id);

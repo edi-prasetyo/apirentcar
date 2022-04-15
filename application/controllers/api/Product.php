@@ -1,29 +1,31 @@
 <?php
 
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Product extends BD_Controller
-{
+class Product extends BD_Controller {
     function __construct()
-
+    
     {
         // Construct the parent class
         parent::__construct();
         $this->auth();
         $this->load->model('M_product');
     }
-
+	
 
     public function dataproduct_get()
     {
         $product = $this->M_product->get_all();
-        if (!empty($product)) {
+        if (!empty($product))
+        {
             $this->response([
                 'code' => 1,
                 'message' => 'List Data Product',
                 'data' => $product
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
-        } else {
+        }
+        else
+        {
             $this->response([
                 'code' => 0,
                 'message' => 'List Data Product Not Found',
@@ -33,19 +35,18 @@ class Product extends BD_Controller
     }
 
 
-    public function datapaket_get()
-    {
+    public function datapaket_get(){
         $mobil_id = $this->get('mobil_id');
-        $kota_id = $this->get('kota_id');
-        $paket = $this->M_product->get_paket($mobil_id, $kota_id);
+        $city_id = $this->get('city_id');
+        $paket = $this->M_product->get_paket($mobil_id,$city_id);
 
-        if (!empty($paket)) {
+        if(!empty($paket)){
             $this->response([
                 'code' => 1,
                 'message' => 'List Data Paket',
                 'data' => $paket
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
-        } else {
+        }else{
             $this->response([
                 'code' => 0,
                 'message' => 'List Data Paket Not Found',
@@ -56,29 +57,18 @@ class Product extends BD_Controller
     }
 
 
-    public function datamobil_get()
-    {
+    public function datamobil_get(){
         $kota = $this->get('kota');
         $type = $this->get('type');
-        $kota_asal = $this->get('kota_asal');
-        $kota_tujuan = $this->get('kota_tujuan');
-        $airport_id = $this->get('airport_id');
+        $car = $this->M_product->get_mobil($kota, $type);
 
-        if ($type === 'daily') {
-            $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, NULL);
-        } else if ($type === 'drop off' || $type === 'Drop Off' || $type === 'dropoff') {
-            $car = $this->M_product->get_mobil(NULL, $type, $kota_asal, $kota_tujuan, NULL);
-        } else if ($type === 'Airport' || $type === 'Air port' || $type === 'airport') {
-            $car = $this->M_product->get_mobil($kota, $type, NULL, NULL, $airport_id);
-        }
-
-        if (!empty($car)) {
+        if(!empty($car)){
             $this->response([
                 'code' => 1,
                 'message' => 'List Data Car',
                 'data' => $car
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
-        } else {
+        }else{
             $this->response([
                 'code' => 0,
                 'message' => 'List Data Car Not Found',
@@ -88,20 +78,19 @@ class Product extends BD_Controller
         }
     }
 
-    public function datapaketdropoff_get()
-    {
+    public function datapaketdropoff_get(){
         $kota_asal = $this->get('kota_asal');
         $kota_tujuan = $this->get('kota_tujuan');
         $mobil_id = $this->get('mobil_id');
         $car = $this->M_product->get_dropoff($kota_asal, $kota_tujuan, $mobil_id);
 
-        if (!empty($car)) {
+        if(!empty($car)){
             $this->response([
                 'code' => 1,
                 'message' => 'List Data Paket Dropoff',
                 'data' => $car
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
-        } else {
+        }else{
             $this->response([
                 'code' => 0,
                 'message' => 'List Data Paket Dropoff Not Found',
@@ -112,21 +101,20 @@ class Product extends BD_Controller
     }
 
 
-    public function datapaketairport_get()
-    {
+    public function datapaketairport_get(){
         $airport_id = $this->get('airport_id');
         $kota_tujuan = $this->get('kota_tujuan');
         $mobil_id = $this->get('mobil_id');
-
+        
         $car = $this->M_product->get_airport($airport_id, $kota_tujuan, $mobil_id);
 
-        if (!empty($car)) {
+        if(!empty($car)){
             $this->response([
                 'code' => 1,
                 'message' => 'List Data Paket Airport',
                 'data' => $car
             ], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
-        } else {
+        }else{
             $this->response([
                 'code' => 0,
                 'message' => 'List Data Paket airport Not Found',
@@ -135,4 +123,7 @@ class Product extends BD_Controller
 
         }
     }
+
+    
+
 }

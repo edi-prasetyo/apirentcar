@@ -51,13 +51,12 @@ class M_product extends CI_Model
 
 
 
-    function get_paket($mobil_id, $kota_id)
-    {
+    function get_paket($mobil_id, $city_id){
         $this->db->select('paket.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi, kota.kota_name, mobil.image_url');
         $this->db->from('paket');
         $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
         $this->db->join('kota', 'kota.id = paket.kota_id', 'LEFT');
-        $this->db->where(['kota_id' => $kota_id, 'mobil_id' => $mobil_id, 'paket_type'  => 'Daily']);
+        $this->db->where(['kota_id' => $city_id, 'mobil_id' => $mobil_id, 'paket_type'  => 'Daily']);
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get()->result();
         if (!empty($data)) {
@@ -120,10 +119,10 @@ class M_product extends CI_Model
 
 
 
-        $this->db->select('paket_dropoff.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi, kota.kota_name, mobil.image_url');
+        $this->db->select('paket_dropoff.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi, mobil.image_url');
         $this->db->from('paket_dropoff');
         $this->db->join('mobil', 'mobil.id = paket_dropoff.mobil_id', 'LEFT');
-        $this->db->where(['kota_asal' => $kota_asal, 'kota_tujuan' => $kota_tujuan, 'mobil_id' => $mobil_id]);
+        $this->db->where(['kota_asal' => $kota_asal, 'kota_tujuan' => $kota_tujuan,'mobil_id' => $mobil_id]);
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get()->result();
         if (!empty($data)) {
@@ -242,55 +241,12 @@ class M_product extends CI_Model
 
 
 
-    function get_mobil($kota = NULL, $type = NULL, $kota_asal = NULL, $kota_tujuan = NULL, $airport_id = NULL)
-    {
-        // if ($type === 'Daily') {
-        //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        //     $this->db->from('paket');
-        //     $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
-        //     $this->db->join('kota', 'kota.id = paket.kota_id', 'LEFT');
-        //     $this->db->where('kota_id', $kota);
-        //     $this->db->order_by('paket.id', 'ASC');
-        //     $this->db->group_by('paket.mobil_id');
-        //     $resultMobil = $this->db->get()->result();
-        // } else if ($type === 'drop off' || $type === 'Drop Off' || $type === 'dropoff') {
-        //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        //     $this->db->from('paket_dropoff');
-        //     $this->db->join('mobil', 'mobil.id = paket_dropoff.mobil_id', 'LEFT');
-        //     $this->db->where('kota_asal', $kota_asal);
-        //     $this->db->where('kota_tujuan', $kota_tujuan);
-        //     $this->db->order_by('paket_dropoff.id', 'ASC');
-        //     $this->db->group_by('paket_dropoff.mobil_id');
-        //     $resultMobil = $this->db->get()->result();
-        // } else if ($type === 'Airport' || $type === 'Air port' || $type === 'airport') {
-        //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        //     $this->db->from('paket_airport');
-        //     $this->db->join('mobil', 'mobil.id = paket_airport.mobil_id', 'LEFT');
-        //     $this->db->where('airport_id', $airport_id);
-        //     $this->db->where('kota_id', $kota);
-        //     $this->db->order_by('paket_airport.id', 'ASC');
-        //     $this->db->group_by('paket_airport.mobil_id');
-        //     $resultMobil = $this->db->get()->result();
-        // } else {
-        //     $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        //     $this->db->from('paket');
-        //     $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
-        //     $this->db->join('kota', 'kota.id = paket.kota_id', 'LEFT');
-        //     $this->db->where('kota_id', $kota);
-        //     $this->db->order_by('paket.id', 'ASC');
-        //     $this->db->group_by('paket.mobil_id');
-        //     $resultMobil = $this->db->get()->result();
-        // }
-
+    function get_mobil($kota, $type){
         $this->db->select('mobil.id, mobil.mobil_name,mobil.mobil_desc,mobil.mobil_penumpang,mobil.mobil_bagasi,mobil.mobil_gambar,mobil.image_url');
-        $this->db->from('paket');
-        $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
-        $this->db->join('kota', 'kota.id = paket.kota_id', 'LEFT');
-        $this->db->where('kota_id', $kota);
-        $this->db->order_by('paket.id', 'ASC');
-        $this->db->group_by('paket.mobil_id');
+        $this->db->from('mobil');
+        $this->db->where('mobil.mobil_status', 'Aktif');
         $resultMobil = $this->db->get()->result();
-
-        return $resultMobil;
+		
+		return $resultMobil;
     }
 }
